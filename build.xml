@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="client_server" default="build" basedir=".">
+
+    <!-- file locations -->
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+
+    <!-- Classpath  -->
+    <path id="project.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${classes.dir}"/>
+    </path>
+
+    <!-- deletes build  -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- compile  -->
+    <target name="build">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+
+    <!-- run server with args -->
+    <target name="run-server" depends="build">
+        <property name="args" value=""/> 
+        <java classname="src.database.Server" fork="true">
+            <classpath refid="project.classpath"/>
+            <arg line="${args}"/>
+        </java>
+    </target>
+
+    <!-- run client with args -->
+    <target name="run-client" depends="build">
+        <property name="args" value=""/> 
+        <java classname="src.database.Client" fork="true">
+            <classpath refid="project.classpath"/>
+            <arg line="${args}"/>
+        </java>
+    </target>
+
+</project>
