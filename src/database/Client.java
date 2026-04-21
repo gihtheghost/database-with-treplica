@@ -76,16 +76,10 @@ public class Client {
         }
     }
 
-    public List<String> list(){
+    public String list(){
         try {
-            List<String> response = new ArrayList<>();
             out.println("l");
-            String line;
-            while((line = in.readLine()) != null) {
-                if (line.equals("END_OF_LIST"))
-                    break;
-                response.add(line);
-            }
+            String response = in.readLine();
             return response;
         } catch (IOException e) {
             return null;
@@ -133,9 +127,8 @@ public class Client {
             } else if ("k".equals(command)) {
                 System.out.println(c.checkpoint());
             } else if ("l".equals(command)) {
-                List<String> lista = c.list();
-                for (String item : lista)
-                    System.out.println(item);
+                String lista = c.list();
+                System.out.println(lista);
             }
         }
     

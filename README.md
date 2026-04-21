@@ -1,6 +1,6 @@
 Como rodar:
 
-Servidor: ant run-server -Dargs="<numero_replicas> <diretorio_state> <porta_servidor>"
+Servidor: ant run-server -Dargs="<numero_replicas> <rtt> <diretorio_state> <porta_servidor>"
 
 Cliente: ant run-client
 

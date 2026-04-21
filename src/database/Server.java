@@ -41,13 +41,11 @@ public class Server {
             } else if ('g' == command.charAt(0) && command.length() > 2) {
                 String key = command.split(" ")[1];
                 out.println(map.get(key));
-                System.out.println("get request");
             } else if ('p' == command.charAt(0) && command.length() > 2) {
                 String key = command.split(" ")[1];
                 String value = command.split(" ", 3)[2];
                 map.put(key, value);
                 out.println("Key added.");
-                System.out.println("put request");
             } else if ('r' == command.charAt(0) && command.length() > 2) {
                 String key = command.split(" ")[1];
                 map.remove(key);
@@ -59,10 +57,13 @@ public class Server {
                 map.takeCheckpoint();
                 out.println("Checkpoint taken.");
             } else if ("l".equals(command)) {
+                StringBuilder string = new StringBuilder();
                 for (Entry<String, String> entry : map.entrySet()) {
-                    out.println(entry.getKey() + ": " + entry.getValue());
+                    if (string.length() > 0)
+                        string.append(", ");
+                    string.append(entry.getKey()).append(": ").append(entry.getValue());
                 }
-                out.println("END_OF_LIST");
+                out.println(string.toString());
             }
         }
 
