@@ -13,6 +13,8 @@ public class Server {
     private static PrintWriter out;
     private static BufferedReader in;
     private static int port;
+    public static final String ERRO = "ERRO: ";
+    public static final String OK = "OK: ";
 
     // agora teremos mais um arg que sera a porta do servidor
     public static void main(String[] args) throws Exception{
@@ -39,31 +41,59 @@ public class Server {
                 serverSocket.close();
                 System.exit(0);
             } else if ('g' == command.charAt(0) && command.length() > 2) {
-                String key = command.split(" ")[1];
-                out.println(map.get(key));
-            } else if ('p' == command.charAt(0) && command.length() > 2) {
-                String key = command.split(" ")[1];
-                String value = command.split(" ", 3)[2];
-                map.put(key, value);
-                out.println("Key added.");
-            } else if ('r' == command.charAt(0) && command.length() > 2) {
-                String key = command.split(" ")[1];
-                map.remove(key);
-                out.println("Key removed.");
-            } else if ("c".equals(command)) {
-                map.clear();
-                out.println("All keys removed.");
-            } else if ("k".equals(command)) {
-                map.takeCheckpoint();
-                out.println("Checkpoint taken.");
-            } else if ("l".equals(command)) {
-                StringBuilder string = new StringBuilder();
-                for (Entry<String, String> entry : map.entrySet()) {
-                    if (string.length() > 0)
-                        string.append(", ");
-                    string.append(entry.getKey()).append(": ").append(entry.getValue());
+                try {
+                    // retorna o valor da chave ou nulo se a chave n existe
+                    String key = command.split(" ")[1];
+                    out.println(OK + map.get(key));
+                } catch (Exception e) {
+                    out.println(ERRO + e.getMessage());
                 }
-                out.println(string.toString());
+            } else if ('p' == command.charAt(0) && command.length() > 2) {
+                try {
+                    // retorna valor antigo da chave ou nulo se nao existia
+                    String key = command.split(" ")[1];
+                    String value = command.split(" ", 3)[2];
+                    out.println(OK + map.put(key, value));
+                } catch (Exception e) {
+                    out.println(ERRO + e.getMessage());
+                }
+            } else if ('r' == command.charAt(0) && command.length() > 2) {
+                try {
+                    // retorna antigo valor da chave ou nulo se n existia
+                    String key = command.split(" ")[1];
+                    out.println(OK + map.remove(key));
+                } catch (Exception e) {
+                    out.println(ERRO + e.getMessage());
+                }
+            } else if ("c".equals(command)) {
+                try {
+                    // sem retorno
+                    map.clear();
+                    out.println(OK);
+                } catch (Exception e) {
+                    out.println(ERRO + e.getMessage());
+                }
+            } else if ("k".equals(command)) {
+                try {
+                    // sem retorno
+                    map.takeCheckpoint();
+                    out.println(OK);
+                } catch (Exception e) {
+                    out.println(ERRO + e);
+                }
+            } else if ("l".equals(command)) {
+                // retorna a lista, se nao tiver nada retorna vazio
+                try {
+                    StringBuilder string = new StringBuilder();
+                    for (Entry<String, String> entry : map.entrySet()) {
+                        if (string.length() > 0)
+                            string.append(", ");
+                        string.append(entry.getKey()).append(": ").append(entry.getValue());
+                    }
+                    out.println(OK + string.toString());
+                } catch (Exception e) {
+                    out.println(ERRO + e.getMessage());
+                }
             }
         }
 

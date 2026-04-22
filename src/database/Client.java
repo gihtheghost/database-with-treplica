@@ -12,6 +12,8 @@ public class Client {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    public static final String ERRO = "ERRO: ";
+    public static final String OK = "OK: ";
 
     //inicializa com ip e porta do servidor
     public Client(String host, int port) {
@@ -26,13 +28,13 @@ public class Client {
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public boolean put(String key, String value){
+    public String put(String key, String value){
         try {
             out.println("p" + " " + key + " " + value);
             String response = in.readLine();
-            return "Key added.".equals(response);
+            return response;
         } catch (IOException e) {
-            return false;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -42,7 +44,7 @@ public class Client {
             String response = in.readLine();
             return response;
         } catch (IOException e) {
-            return null;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -52,7 +54,7 @@ public class Client {
             String response = in.readLine();
             return response;
         } catch (IOException e) {
-            return null;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -62,7 +64,7 @@ public class Client {
             String response = in.readLine();
             return response;
         } catch (IOException e) {
-            return null;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -72,7 +74,7 @@ public class Client {
             String response = in.readLine();
             return response;
         } catch (IOException e) {
-            return null;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -82,7 +84,7 @@ public class Client {
             String response = in.readLine();
             return response;
         } catch (IOException e) {
-            return null;
+            return ERRO + e.getMessage();
         }
     }
 
@@ -116,9 +118,7 @@ public class Client {
             } else if ('p' == command.charAt(0) && command.length() > 2) {
                 String key = command.split(" ")[1];
                 String value = command.split(" ", 3)[2];
-                Boolean response = c.put(key, value);
-                if (response)
-                    System.out.println("Key added.");
+                System.out.println(c.put(key, value));
             } else if ('r' == command.charAt(0) && command.length() > 2) {
                 String key = command.split(" ")[1];
                 System.out.println(c.remove(key));
