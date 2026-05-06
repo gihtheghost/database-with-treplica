@@ -22,7 +22,9 @@ public class Server {
         ReplicatedMap<String, String> map = new ReplicatedMap<>(Integer.parseInt(args[0]),
                                             Integer.parseInt(args[1]), args[2]);
         port = Integer.parseInt(args[3]);
+        System.out.println("Tentando rodar servidor!");
         serverSocket = new ServerSocket(port);
+        System.out.println("Servidor rodando!");
         clientSocket = serverSocket.accept();
         System.out.println("Client connected!");
 
