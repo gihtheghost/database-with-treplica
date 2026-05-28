@@ -99,6 +99,8 @@ public class Server {
                 } catch (Exception e) {
                     out.println(ERRO + e.getMessage());
                 }
+            } else {
+                System.out.println("mensagem no formato errado");
             }
         }
 
