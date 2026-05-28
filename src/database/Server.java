@@ -37,6 +37,7 @@ public class Server {
                 continue;
             }
             if ("q".equals(command)) {
+                System.out.println("Fechando servidor");
                 in.close();
                 out.close();
                 clientSocket.close();
@@ -44,6 +45,7 @@ public class Server {
                 System.exit(0);
             } else if ('g' == command.charAt(0) && command.length() > 2) {
                 try {
+                    System.out.println("Get");
                     // retorna o valor da chave ou nulo se a chave n existe
                     String key = command.split(" ")[1];
                     out.println(OK + map.get(key));
@@ -52,6 +54,7 @@ public class Server {
                 }
             } else if ('p' == command.charAt(0) && command.length() > 2) {
                 try {
+                    System.out.println("Put");
                     // retorna valor antigo da chave ou nulo se nao existia
                     String key = command.split(" ")[1];
                     String value = command.split(" ", 3)[2];
