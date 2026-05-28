@@ -34,7 +34,6 @@ public class Server {
         while(true){
             String command = in.readLine();
             if (command == null || command.length() == 0) {
-                System.out.println("comando nulo");
                 continue;
             }
             if ("q".equals(command)) {
