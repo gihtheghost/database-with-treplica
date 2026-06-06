@@ -30,7 +30,7 @@ public class Server {
                 Thread clientThread = new Thread(new ClientHandler(clientSocket, map));
                 clientThread.start();
             } catch (IOException e) {
-                System.out.println("Erro de conexão: " + e.getMessage());
+                System.out.println("Erro de conexao: " + e.getMessage());
             }
         }
     }
