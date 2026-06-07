@@ -24,7 +24,7 @@ public class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Novo cliente conectado: " + clientSocket.getInetAddress());
+                System.out.println("Novo cliente conectado");
 
                 //uma thread pra cada cliente
                 Thread clientThread = new Thread(new ClientHandler(clientSocket, map));
